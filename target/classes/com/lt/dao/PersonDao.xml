@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.dao.PersonDao">
+    <!--配置查询所有（查）-->
+    <select id="findAll" resultType="com.lt.pojo.Person">
+        select * from person;
+    </select>
+
+    <!--添加用户(增)-->
+    <insert id="savePerson" parameterType="com.lt.pojo.Person">
+        <!--        &lt;!&ndash;配置保存时获取插入的id&ndash;&gt;-->
+        <!--        <selectKey keyColumn="id" keyProperty="id" resultType="int">-->
+        <!--            select id();-->
+        <!--        </selectKey>-->
+        insert into person(name,username,password,sex,age) values(#{name},#{username},#{password},#{sex},#{age});
+    </insert>
+
+    <!--更新用户（改）-->
+    <update id="upDatePerson" parameterType="com.lt.pojo.Person">
+        update person set name=#{name},username=#{username},password=#{password},
+        sex=#{sex},age=#{age} where id=#{id};
+    </update>
+
+    <!--删除用户（删）-->
+    <delete id="detelePerson" parameterType="com.lt.pojo.Person">
+        delete from person where id=#{id};
+    </delete>
+
+    <!--模糊查询-->
+    <select id="likePerson" resultType="com.lt.pojo.Person">
+        select*from person where age like #{age};
+    </select>
+
+    <!--聚合函数-->
+    <select id="countPerson" resultType="int">
+        select count(*) from person;
+    </select>
+
+</mapper>
